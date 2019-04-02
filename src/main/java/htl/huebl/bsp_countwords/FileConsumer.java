@@ -1,10 +1,10 @@
 package htl.huebl.bsp_countwords;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +24,11 @@ public class FileConsumer extends Thread {
                 try {
                     b = queue.get();
                     queue.notifyAll();
+                    System.out.println(Thread.currentThread().getName() + " grabbed book");
                 } catch (EmptyException ex) {
                     try {
                         queue.wait();
+                        System.out.println(Thread.currentThread().getName() + " waits");
                         continue;
                     } catch (InterruptedException ex1) {
                         Logger.getLogger(FileConsumer.class.getName()).log(Level.SEVERE, null, ex1);
@@ -46,24 +48,30 @@ public class FileConsumer extends Thread {
             } catch (IOException ex) {
                 Logger.getLogger(FileConsumer.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            fillFile(f, b);
+
+            try {
+                fillFile(f, b);
+            } catch (Exception ex) {
+                Logger.getLogger(FileConsumer.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
 
     }
 
-    private void fillFile(File f, Book b) {
+    private void fillFile(File f, Book b) throws Exception {
         HashMap<String, Integer> map = b.countWords();
+        Iterator iterator = map.keySet().iterator();
+        PrintWriter writer = new PrintWriter(f.getAbsoluteFile(), "UTF-8");
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
-            bw.write("" + map.toString());
-            System.out.println("" + map.toString());
-            
+        while (iterator.hasNext()) {
+            String key = iterator.next().toString();
+            String value = map.get(key).toString();
+            writer.println(key + ": " + value);
 
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        writer.close();
 
     }
 

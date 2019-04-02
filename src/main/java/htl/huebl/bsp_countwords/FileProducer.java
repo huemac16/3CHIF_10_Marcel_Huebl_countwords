@@ -41,9 +41,11 @@ public class FileProducer extends Thread {
                     try {
                         books.put(new Book(fileList[i].getName(), texts[i]));
                         books.notifyAll();
+                        System.out.println(Thread.currentThread().getName() + " added to queue");
                     } catch (FullException ex) {
                         try {
                             books.wait();
+                            System.out.println(Thread.currentThread().getName() + " waits");
                         } catch (InterruptedException ex1) {
                             Logger.getLogger(FileProducer.class.getName()).log(Level.SEVERE, null, ex1);
                         }

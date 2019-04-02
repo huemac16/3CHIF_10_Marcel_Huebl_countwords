@@ -20,6 +20,9 @@ public class Book {
         HashMap<String, Integer> map = new HashMap<>();
 
         text = text.replaceAll("\\s+", ";");
+        text = text.replaceAll(",", "");
+        text = text.replaceAll(".", "");
+        
         String[] words = text.split(";");
 
         for (int i = 0; i < words.length; i++) {
