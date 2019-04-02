@@ -68,7 +68,7 @@ public class FileConsumer extends Thread {
             String key = iterator.next().toString();
             String value = map.get(key).toString();
             writer.println(key + ": " + value);
-            System.out.println(key + ": " + value);
+            //System.out.println(key + ": " + value);
 
         }
 

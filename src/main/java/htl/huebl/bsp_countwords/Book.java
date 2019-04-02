@@ -18,14 +18,17 @@ public class Book {
 
     public HashMap<String, Integer> countWords() {
         HashMap<String, Integer> map = new HashMap<>();
-        
+
         text = text.replaceAll(",", ";");
         text = text.replaceAll("\\s+", ";");
 
         String[] words = text.split(";");
 
         for (int i = 0; i < words.length; i++) {
-            map.put(words[i], counter(words, words[i]));
+            if (counter(words, words[i]) >= 2) {
+                map.put(words[i], counter(words, words[i]));
+            }
+
         }
 
         return map;

@@ -22,7 +22,7 @@ public class FileProducer extends Thread {
         while (true) {
             String text = "";
             File f = null;
-            JFileChooser fc = new JFileChooser(".");
+            JFileChooser fc = new JFileChooser(".\\files");
             
             if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 f = fc.getSelectedFile();
