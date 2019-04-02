@@ -5,6 +5,7 @@
  */
 package htl.huebl.bsp_countwords;
 
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +23,19 @@ public class BookTest {
      */
     @Test
     public void testCountWords() {
+        String text = "Das ist ein Beispiel hier. Ein Beispiel ist das. Hoffentlich"
+                + " wird dieser Test funktionieren";
 
+        HashMap<String, Integer> expectedMap = new HashMap<>();
+
+        expectedMap.put("ist", 2);
+        expectedMap.put("Beispiel", 2);
+
+        Book b = new Book("text.txt", text);
+
+        HashMap<String, Integer> map = b.countWords();
+
+        assertEquals(expectedMap.toString(), map.toString(), "should be equals");
     }
 
     /**

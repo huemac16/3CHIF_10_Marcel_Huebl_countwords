@@ -39,8 +39,9 @@ public class FileConsumer extends Thread {
 
             //go on
             String path = ".\\outFiles";
-
-            File f = new File(path, b.getInputfilename() + "-output.txt");
+            String filename = b.getInputfilename().substring(0,
+                    b.getInputfilename().length() - 4);
+            File f = new File(path, filename + "-output.txt");
 
             f.getParentFile().mkdirs();
             try {
