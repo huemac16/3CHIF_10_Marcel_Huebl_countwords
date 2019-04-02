@@ -12,7 +12,6 @@ public class Main {
         FileConsumer consumer1 = new FileConsumer(queue);
         FileConsumer consumer2 = new FileConsumer(queue);
         FileConsumer consumer3 = new FileConsumer(queue);
-        FileConsumer consumer4 = new FileConsumer(queue);
 
         producer1.setName("pro1");
         producer1.start();
@@ -26,8 +25,6 @@ public class Main {
         consumer3.setName("con3");
         consumer3.start();
 
-        consumer4.setName("con4");
-        consumer4.start();
     }
 
 }
