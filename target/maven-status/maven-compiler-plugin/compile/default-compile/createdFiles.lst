@@ -1,3 +1,7 @@
-htl\huebl\bsp_countwords\Book.class
 htl\huebl\bsp_countwords\MyQueue.class
+htl\huebl\bsp_countwords\FileProducer.class
+htl\huebl\bsp_countwords\FileConsumer.class
+htl\huebl\bsp_countwords\Book.class
+htl\huebl\bsp_countwords\FullException.class
+htl\huebl\bsp_countwords\EmptyException.class
 htl\huebl\bsp_countwords\Main.class

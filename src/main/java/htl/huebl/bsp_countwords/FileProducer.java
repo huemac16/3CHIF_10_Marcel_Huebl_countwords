@@ -35,6 +35,7 @@ public class FileProducer extends Thread {
                 }
             } else if (fc.showOpenDialog(null) == JFileChooser.CANCEL_OPTION) {
                 break;
+                
             }
 
             synchronized (books) {

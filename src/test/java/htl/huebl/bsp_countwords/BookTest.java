@@ -35,7 +35,7 @@ public class BookTest {
 
         HashMap<String, Integer> map = b.countWords();
 
-        assertEquals(expectedMap.toString(), map.toString(), "should be equals");
+        assertEquals(expectedMap.toString(), map.toString(), "should be equal");
     }
 
     /**
