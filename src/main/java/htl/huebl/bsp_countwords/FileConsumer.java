@@ -62,12 +62,13 @@ public class FileConsumer extends Thread {
     private void fillFile(File f, Book b) throws Exception {
         HashMap<String, Integer> map = b.countWords();
         Iterator iterator = map.keySet().iterator();
-        PrintWriter writer = new PrintWriter(f.getAbsoluteFile(), "UTF-8");
+        PrintWriter writer = new PrintWriter(f, "UTF-8");
 
         while (iterator.hasNext()) {
             String key = iterator.next().toString();
             String value = map.get(key).toString();
             writer.println(key + ": " + value);
+            System.out.println(key + ": " + value);
 
         }
 

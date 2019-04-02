@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 public class FileProducer extends Thread {
 
     private final MyQueue<Book> books;
+    private File[] fileList = new File(".\\files").listFiles();
 
     public FileProducer(MyQueue<Book> books) {
         this.books = books;
@@ -18,39 +20,35 @@ public class FileProducer extends Thread {
     public void run() {
 
         while (true) {
-            File[] fileList = new File(".\\files").listFiles();
-            String[] texts = new String[fileList.length];
-
-            for (int i = 0; i < fileList.length; i++) {
-                String text = "";
-
-                try (BufferedReader br = new BufferedReader(new FileReader(fileList[i]))) {
-                    String line;
+            String text = "";
+            File f = null;
+            JFileChooser fc = new JFileChooser(".");
+            
+            if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                f = fc.getSelectedFile();
+                try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+                    String line = "";
                     while ((line = br.readLine()) != null) {
-                        text += line;
+                        text += br.readLine();
                     }
-
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
-                texts[i] = text;
             }
 
             synchronized (books) {
-                for (int i = 0; i < fileList.length; i++) {
+                try {
+                    books.put(new Book(f.getName(), text));
+                    books.notifyAll();
+                    System.out.println(Thread.currentThread().getName() + " added to queue");
+                } catch (FullException ex) {
                     try {
-                        books.put(new Book(fileList[i].getName(), texts[i]));
-                        books.notifyAll();
-                        System.out.println(Thread.currentThread().getName() + " added to queue");
-                    } catch (FullException ex) {
-                        try {
-                            books.wait();
-                            System.out.println(Thread.currentThread().getName() + " waits");
-                        } catch (InterruptedException ex1) {
-                            Logger.getLogger(FileProducer.class.getName()).log(Level.SEVERE, null, ex1);
-                        }
+                        books.wait();
+                        System.out.println(Thread.currentThread().getName() + " waits");
+                    } catch (InterruptedException ex1) {
+                        Logger.getLogger(FileProducer.class.getName()).log(Level.SEVERE, null, ex1);
                     }
                 }
+
             }
 
         }
