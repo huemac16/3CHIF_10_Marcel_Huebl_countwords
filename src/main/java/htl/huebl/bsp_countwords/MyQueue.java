@@ -10,5 +10,21 @@ public class MyQueue<T> {
     public MyQueue(int maxSize) {
         this.maxSize = maxSize;
     }
+    
+    public void put(T value) throws FullException {
+        if (data.size() == maxSize) {
+            throw new FullException();
+        }
+
+        data.add(value);
+    }
+
+    public T get() throws EmptyException {
+        if (data.isEmpty()) {
+            throw new EmptyException();
+        }
+        return data.poll();
+
+    }
 
 }
