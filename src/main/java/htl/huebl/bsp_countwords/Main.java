@@ -11,7 +11,10 @@ package htl.huebl.bsp_countwords;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("test");
+//        String text = "Das ist ein Test und ich    frage\n\n"
+//                + "   mich ob es funktioniert   .";
+//        
+//        System.out.println("" + text.replaceAll("\\s+",";"));
     }
     
 }
