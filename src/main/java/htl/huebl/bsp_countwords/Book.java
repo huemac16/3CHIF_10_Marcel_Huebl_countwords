@@ -15,8 +15,6 @@ public class Book {
     public String getInputfilename() {
         return inputfilename;
     }
-    
-    
 
     public HashMap<String, Integer> countWords() {
         HashMap<String, Integer> map = new HashMap<>();
@@ -25,15 +23,21 @@ public class Book {
         String[] words = text.split(";");
 
         for (int i = 0; i < words.length; i++) {
-            if (!map.containsKey(words[i])) {
-                map.put(words[i], 1);
-            } else {
-                map.put(words[i], map.get(words[i] + 1));
-
-            }
+            map.put(words[i], counter(words, words[i]));
         }
 
         return map;
+    }
+
+    private int counter(String[] words, String word) {
+        int counter = 0;
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals(word)) {
+                counter++;
+            }
+        }
+
+        return counter;
     }
 
 }

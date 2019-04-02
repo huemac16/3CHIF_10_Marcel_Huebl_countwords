@@ -1,20 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package htl.huebl.bsp_countwords;
 
-/**
- *
- * @author Marcel
- */
+
 public class Main {
+
     public static void main(String[] args) {
-//        String text = "Das ist ein Test und ich    frage\n\n"
-//                + "   mich ob es funktioniert   .";
-//        
-//        System.out.println("" + text.replaceAll("\\s+",";"));
+        MyQueue<Book> queue = new MyQueue<>(3);
+        
+        FileProducer producer1 = new FileProducer(queue);
+        FileConsumer consumer1 = new FileConsumer(queue);
+        FileConsumer consumer2 = new FileConsumer(queue);
+        
+        new Thread(producer1, "Producer 1").start();
+
+        consumer1.setName("Consumer 1");
+        consumer1.start();
+
+        consumer2.setName("Consumer 2");
+        consumer2.start();
+
     }
-    
+
 }

@@ -27,6 +27,7 @@ public class FileConsumer extends Thread {
                 } catch (EmptyException ex) {
                     try {
                         queue.wait();
+                        continue;
                     } catch (InterruptedException ex1) {
                         Logger.getLogger(FileConsumer.class.getName()).log(Level.SEVERE, null, ex1);
                     }
@@ -35,9 +36,9 @@ public class FileConsumer extends Thread {
             }
 
             //go on
-            String path = "\\outFiles";
+            String path = ".\\outFiles";
 
-            File f = new File(path, b.getInputfilename() + "-output");
+            File f = new File(path, b.getInputfilename() + "-output.txt");
 
             f.getParentFile().mkdirs();
             try {
@@ -57,6 +58,7 @@ public class FileConsumer extends Thread {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
             bw.write("" + map.toString());
+            System.out.println("" + map.toString());
             
 
         } catch (Exception e) {

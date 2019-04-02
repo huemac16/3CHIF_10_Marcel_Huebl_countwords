@@ -18,7 +18,7 @@ public class FileProducer extends Thread {
     public void run() {
 
         while (true) {
-            File[] fileList = new File("\\files").listFiles();
+            File[] fileList = new File(".\\files").listFiles();
             String[] texts = new String[fileList.length];
 
             for (int i = 0; i < fileList.length; i++) {
