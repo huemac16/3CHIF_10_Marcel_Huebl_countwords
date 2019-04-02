@@ -34,7 +34,7 @@ public class Book {
         return map;
     }
 
-    private int counter(String[] words, String word) {
+    public int counter(String[] words, String word) {
         int counter = 0;
         for (int i = 0; i < words.length; i++) {
             if (words[i].equals(word)) {

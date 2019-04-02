@@ -23,7 +23,7 @@ public class FileProducer extends Thread {
             String text = "";
             File f = null;
             JFileChooser fc = new JFileChooser(".\\files");
-            
+
             if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 f = fc.getSelectedFile();
                 try (BufferedReader br = new BufferedReader(new FileReader(f))) {
@@ -33,6 +33,8 @@ public class FileProducer extends Thread {
                     }
                 } catch (Exception e) {
                 }
+            } else if (fc.showOpenDialog(null) == JFileChooser.CANCEL_OPTION) {
+                break;
             }
 
             synchronized (books) {

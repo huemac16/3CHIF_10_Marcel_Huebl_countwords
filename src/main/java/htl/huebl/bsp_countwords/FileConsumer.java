@@ -50,7 +50,7 @@ public class FileConsumer extends Thread {
             }
 
             try {
-                fillFile(f, b);
+                writeFile(f, b);
             } catch (Exception ex) {
                 Logger.getLogger(FileConsumer.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -59,7 +59,7 @@ public class FileConsumer extends Thread {
 
     }
 
-    private void fillFile(File f, Book b) throws Exception {
+    private void writeFile(File f, Book b) throws Exception {
         HashMap<String, Integer> map = b.countWords();
         Iterator iterator = map.keySet().iterator();
         PrintWriter writer = new PrintWriter(f, "UTF-8");
