@@ -36,6 +36,21 @@ public class FileProducer extends Thread {
                 texts[i] = text;
             }
 
+            synchronized (books) {
+                for (int i = 0; i < fileList.length; i++) {
+                    try {
+                        books.put(new Book(fileList[i].getName(), texts[i]));
+                        books.notifyAll();
+                    } catch (FullException ex) {
+                        try {
+                            books.wait();
+                        } catch (InterruptedException ex1) {
+                            Logger.getLogger(FileProducer.class.getName()).log(Level.SEVERE, null, ex1);
+                        }
+                    }
+                }
+            }
+
         }
     }
 
