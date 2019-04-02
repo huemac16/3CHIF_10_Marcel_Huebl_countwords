@@ -12,6 +12,12 @@ public class Book {
         this.text = text;
     }
 
+    public String getInputfilename() {
+        return inputfilename;
+    }
+    
+    
+
     public HashMap<String, Integer> countWords() {
         HashMap<String, Integer> map = new HashMap<>();
 
